@@ -1,16 +1,52 @@
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useState } from "react";
+import { lazy, Suspense } from "react";
+import { GlobalStyle } from "./GlobalStyle";
+import Loader from "./Loader";
+
+const Home = lazy(() => import("../pages/Home"));
+const Sidebar = lazy(() => import("./Header"));
+const Catalog = lazy(() => import("../pages/Catalog"));
+const Favorites = lazy(() => import("../pages/Favorites"));
+
 export const App = () => {
+  const [cars, setCars] = useState([]);
+
+  const favoriteToggle = (e) => {
+    const id = Number(e.currentTarget.id);
+
+    const updatedCars = cars.map((car) => ({
+      ...car,
+      favorite: car.id === id ? !car.favorite : car.favorite,
+    }));
+    setCars(updatedCars);
+    const favoriteCars = updatedCars.filter((car) => car.favorite === true);
+    localStorage.setItem("favs", JSON.stringify(favoriteCars));
+  };
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<Sidebar />}>
+          <Route index element={<Home />} />
+          <Route
+            path="/catalog"
+            element={
+              <Catalog
+                cars={cars}
+                setCars={setCars}
+                favoriteToggle={favoriteToggle}
+              />
+            }
+          />
+          <Route
+            path="/favorites"
+            element={<Favorites cars={cars} favoriteToggle={favoriteToggle} />}
+          />
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+      <GlobalStyle />
+    </Suspense>
   );
 };
