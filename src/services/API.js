@@ -1,14 +1,33 @@
 import axios from "axios";
-export const BASE_URL = "https://6501ec99736d26322f5c7e6f.mockapi.io";
+
+export const BASE_URL = "http://localhost:4000";
 export let page = 1;
 export const limit = 8;
 
+const instance = axios.create({
+  baseURL: BASE_URL,
+});
+
+instance.interceptors.request.use((config) => {
+  config.params = {
+    ...config.params,
+    limit: limit,
+  };
+  return config;
+});
+
 export const fetchAPI = async (page) => {
-  const data = await axios.get(`${BASE_URL}/adverts`, {
+  const response = await instance.get("/", {
     params: {
-      page,
-      limit: 8,
+      page: page,
     },
   });
-  return data;
+  return response.data;
 };
+
+instance.interceptors.request.use((config) => {
+  config.headers.Authorization = window.localStorage.getItem('token');
+  return config;
+})
+
+export default instance;

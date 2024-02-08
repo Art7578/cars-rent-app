@@ -27,7 +27,7 @@ const modalRoot = document.querySelector("#modal-root");
 
 const CarModal = ({ car, onCloseModal }) => {
   const {
-    id,
+    _id,
     address,
     fuelConsumption,
     type,
@@ -47,7 +47,7 @@ const CarModal = ({ car, onCloseModal }) => {
   const descriptionScheme = [
     address.split(", ")[1],
     address.split(", ")[2],
-    `Id: ${id}`,
+    `Id: ${_id}`,
     `Year: ${year}`,
     `Type: ${type.charAt(0).toUpperCase()}${type.slice(1).toLowerCase()}`,
     `Fuel Consumption: ${fuelConsumption}`,

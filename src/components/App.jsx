@@ -13,11 +13,11 @@ export const App = () => {
   const [cars, setCars] = useState([]);
 
   const favoriteToggle = (e) => {
-    const id = Number(e.currentTarget.id);
+    const id = Number(e.currentTarget._id);
 
     const updatedCars = cars.map((car) => ({
       ...car,
-      favorite: car.id === id ? !car.favorite : car.favorite,
+      favorite: car._id === id ? !car.favorite : car.favorite,
     }));
     setCars(updatedCars);
     const favoriteCars = updatedCars.filter((car) => car.favorite === true);

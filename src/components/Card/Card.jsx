@@ -23,7 +23,7 @@ const CarCard = ({ car, setFavorite }) => {
   };
 
   const {
-    id,
+    _id,
     address,
     rentalCompany,
     type,
@@ -59,7 +59,7 @@ const CarCard = ({ car, setFavorite }) => {
         <AddFavoriteButton
           type="button"
           onClick={setFavorite}
-          id={id}
+          id={_id}
         >
           <svg className={`icon ${favorite ? "favorite" : ""}`}>
             <use href={`${icon}#icon-heart`}></use>
