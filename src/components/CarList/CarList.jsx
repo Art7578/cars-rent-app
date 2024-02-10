@@ -8,6 +8,7 @@ import { fetchCatalog } from '../../redux/slices/catalog';
 const Gallery = ({ setFavorite }) => {
     const dispatch = useDispatch();
     const { catalog } = useSelector(state => state.catalog);
+    
 
     React.useEffect(() => {
         dispatch(fetchCatalog());
@@ -18,8 +19,8 @@ const Gallery = ({ setFavorite }) => {
     return (
         <>
             <Container>
-                {carsToShow.map((car) => (
-                    <li key={car._id}>
+                {carsToShow.map((car, index) => (
+                    <li key={`${car._id}-${index}`}>
                         <CarCard car={car} setFavorite={setFavorite} />
                     </li>
                 ))}
@@ -33,4 +34,3 @@ Gallery.propTypes = {
 };
 
 export default Gallery;
-
