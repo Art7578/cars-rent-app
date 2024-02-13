@@ -58,6 +58,21 @@ export const AddFavoriteButton = styled.button`
   }
 `;
 
+export const RemoveFavoriteButton = styled.button`
+  color: #fff;
+  border: 1px solid transperent;
+  border: 50%;
+  background-color: white;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e04141;
+  }
+`;
+
 export const TitleWrap = styled.div`
   width: 265px;
 `;

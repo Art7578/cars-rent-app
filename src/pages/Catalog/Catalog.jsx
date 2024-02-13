@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Gallery from "../../components/CarList";
 import Loader from "../../components/Loader";
 import { Container, Button } from "./Catalog.styled";
-import { fetchCatalog, setHasMore, setCurrentPage, decreaseCurrentPage } from '../../redux/slices/catalog'; // Изменено здесь
+import { fetchCatalog, setHasMore, setCurrentPage, decreaseCurrentPage } from '../../redux/slices/catalog'; 
 
 const Catalog = ({ cars, setCars, favoriteToggle }) => {
   const dispatch = useDispatch();
@@ -24,9 +24,7 @@ const Catalog = ({ cars, setCars, favoriteToggle }) => {
                   ...car,
                   favorite: favoriteCars.includes(car._id) ? true : false,
               }));
-              // Объединяем новые данные с текущим списком автомобилей
               setCars(prevCars => [...prevCars, ...favoritedCars]);
-              // Проверяем, остались ли еще элементы для загрузки
               if (data.length < catalog.itemsPerPage) {
                   dispatch(setHasMore(false));
               }
@@ -41,14 +39,11 @@ const Catalog = ({ cars, setCars, favoriteToggle }) => {
   }, [catalog.currentPage, catalog.itemsPerPage, setCars, dispatch]);
 
   const loadMore = () => {
-      // Увеличиваем номер текущей страницы для загрузки следующих элементов
       dispatch(setCurrentPage(catalog.currentPage + 1));
   };
 
   const goBack = () => {
-      // Уменьшаем номер текущей страницы для загрузки предыдущих элементов
       dispatch(decreaseCurrentPage());
-      // Устанавливаем флаг hasMore в true при возврате на предыдущую страницу
       dispatch(setHasMore(true));
   };
 
@@ -57,8 +52,10 @@ const Catalog = ({ cars, setCars, favoriteToggle }) => {
           {isLoading && <Loader />}
           {error && <div>{error.message}</div>}
           <Gallery cars={cars} setFavorite={favoriteToggle} />
-          {catalog.currentPage > 1 && !isLoading && <Button onClick={goBack}>Go Back</Button>} {/* Добавлено условие для отображения кнопки */}
-          {catalog.hasMore && !isLoading && <Button onClick={loadMore}>Load more</Button>}
+          <div>
+            {catalog.currentPage > 1 && !isLoading && <Button onClick={goBack}>Go Back</Button>} 
+            {catalog.hasMore && !isLoading && <Button onClick={loadMore}>Load more</Button>}
+          </div>
       </Container>
   );
 };

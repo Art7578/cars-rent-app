@@ -1,25 +1,34 @@
+import React from "react";
 import PropTypes from "prop-types";
-import Gallery from "../../components/CarList";
-import { Container, Text } from "./Favorites.styled";
+import { useSelector } from 'react-redux';
+import CarCard from "components/Card/Card";
+import { Container } from "./Favorites.styled";
+import { selectFavorites } from '../../redux/slices/favorites';
+import { Text, List } from "./Favorites.styled";
 
-const Favorites = ({ cars, favoriteToggle }) => {
-  const favoriteCars = localStorage.getItem("favs")
-    ? JSON.parse(localStorage.getItem("favs"))
-    : [];
+const Favorites = () => {
+  const favoriteCars = useSelector(selectFavorites);
+
+ 
 
   return (
     <Container>
       {favoriteCars.length === 0 ? (
         <Text>You didn't choose your favorite cars</Text>
       ) : (
-        <Gallery cars={favoriteCars} setFavorite={favoriteToggle} />
+        <List>
+          {favoriteCars.map((car, index) => (
+            <li key={index}>
+              <CarCard car={car} key={index}/>
+            </li>
+          ))}
+        </List>
       )}
     </Container>
   );
 };
 
 Favorites.propTypes = {
-  cars: PropTypes.array.isRequired,
   favoriteToggle: PropTypes.func.isRequired,
 };
 

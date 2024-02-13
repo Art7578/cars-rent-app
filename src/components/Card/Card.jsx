@@ -1,7 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import CarModal from "../Modal/Modal";
-import DefaultImage from '../../images/img/DefaultImage.png'
+import DefaultImage from '../../images/img/DefaultImage.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToFavorites, removeFromFavorites, selectFavorites } from '../../redux/slices/favorites';
 import icon from "../../images/svg/sprite.svg";
 import {
   CardWrap,
@@ -15,15 +17,27 @@ import {
   CardButton,
 } from "./Card.styled";
 
-const CarCard = ({ car, setFavorite }) => {
+const CarCard = ({ car }) => {
   const [isOpened, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const favoriteCars = useSelector(selectFavorites);
+
+  // Обработчик клика на кнопке AddFavoriteButton
+  const handleFavoriteToggle = () => {
+    const isFavorite = favoriteCars.some(favoriteCar => favoriteCar._id === car._id);
+
+    if (isFavorite) {
+      dispatch(removeFromFavorites(car._id));
+    } else {
+      dispatch(addToFavorites(car));
+    }
+  };
 
   const handleCloseModal = () => {
     setIsOpen(!isOpened);
   };
 
   const {
-    _id,
     address,
     rentalCompany,
     type,
@@ -34,7 +48,6 @@ const CarCard = ({ car, setFavorite }) => {
     make,
     rentalPrice,
     year,
-    favorite,
   } = car;
 
   const randomFeature = Math.floor(Math.random() * functionalities.length);
@@ -58,10 +71,9 @@ const CarCard = ({ car, setFavorite }) => {
         </Image>
         <AddFavoriteButton
           type="button"
-          onClick={setFavorite}
-          id={_id}
+          onClick={handleFavoriteToggle}
         >
-          <svg className={`icon ${favorite ? "favorite" : ""}`}>
+          <svg className={`icon ${favoriteCars.some(favoriteCar => favoriteCar._id === car._id) ? "favorite" : ""}`}>
             <use href={`${icon}#icon-heart`}></use>
           </svg>
         </AddFavoriteButton>
@@ -93,7 +105,7 @@ const CarCard = ({ car, setFavorite }) => {
 
 CarCard.propTypes = {
   car: PropTypes.object.isRequired,
-  setFavorite: PropTypes.func.isRequired,
 };
 
 export default CarCard;
+

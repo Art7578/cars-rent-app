@@ -17,7 +17,7 @@ const initialState = {
         status: 'loading',
         currentPage: 1,
         itemsPerPage: 8,
-        hasMore: true // флаг для отслеживания наличия дополнительных элементов
+        hasMore: true 
     }
 };
 
@@ -34,7 +34,7 @@ const catalogSlice = createSlice({
         },
         decreaseCurrentPage: (state) => {
             state.catalog.currentPage -= 1;
-            state.catalog.hasMore = true; // Установим флаг hasMore в true при уменьшении страницы
+            state.catalog.hasMore = true; 
         }
     },
     extraReducers: (builder) => {

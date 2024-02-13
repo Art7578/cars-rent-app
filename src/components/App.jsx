@@ -1,3 +1,5 @@
+// App.jsx
+
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { lazy, Suspense } from "react";
@@ -12,14 +14,15 @@ const Favorites = lazy(() => import("../pages/Favorites"));
 export const App = () => {
   const [cars, setCars] = useState([]);
 
-  const favoriteToggle = (e) => {
-    const id = Number(e.currentTarget._id);
+  const favoriteToggle = (_id) => {
+    console.log("Toggled car with id:", _id);
 
     const updatedCars = cars.map((car) => ({
       ...car,
-      favorite: car._id === id ? !car.favorite : car.favorite,
+      favorite: car._id === _id ? !car.favorite : car.favorite,
     }));
     setCars(updatedCars);
+
     const favoriteCars = updatedCars.filter((car) => car.favorite === true);
     localStorage.setItem("favs", JSON.stringify(favoriteCars));
   };

@@ -7,6 +7,12 @@ export const Container = styled.div`
   padding: 50px 128px 150px 128px;
 `;
 
+export const CatalogButtons = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Button = styled.button`
   color: #fff;
   font-family: Manrope;
@@ -17,6 +23,7 @@ export const Button = styled.button`
   border: 1px solid transparent;
   border-radius: 10px;
   background-color: #3470ff;
+  margin-left: 20px;
 
   &:hover {
     background-color: #0b44cd;
