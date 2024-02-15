@@ -1,11 +1,12 @@
-// App.jsx
-
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { lazy, Suspense } from "react";
-import { GlobalStyle } from "./GlobalStyle";
+import './Style.css';
 import Loader from "./Loader";
 
+// Импортируем страницы Registration и LogIn
+const Registration = lazy(() => import("../pages/Registration"));
+const LogIn = lazy(() => import("../pages/LogIn"));
 const Home = lazy(() => import("../pages/Home"));
 const Sidebar = lazy(() => import("./Header"));
 const Catalog = lazy(() => import("../pages/Catalog"));
@@ -30,6 +31,8 @@ export const App = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/login" element={<LogIn />} />
         <Route path="/" element={<Sidebar />}>
           <Route index element={<Home />} />
           <Route
@@ -49,7 +52,7 @@ export const App = () => {
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      <GlobalStyle />
     </Suspense>
   );
 };
+

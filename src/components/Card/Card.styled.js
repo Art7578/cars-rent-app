@@ -8,6 +8,9 @@ export const CardWrap = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 21px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px;
 `;
 
 export const ImageWrap = styled.div`

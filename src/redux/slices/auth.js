@@ -31,10 +31,10 @@ const authSlice = createSlice({
                 state.status = 'loading';
                 state.data = null;
             })
-            .addCase(fetchAuth.fulfilled, (state, action) => {
+            .addCase(fetchRegister.fulfilled, (state, action) => {
                 state.status = 'loaded';
                 state.data = action.payload;
-            })
+              })
             .addCase(fetchAuth.rejected, (state) => {
                 state.status = 'error';
                 state.data = null;
@@ -43,10 +43,10 @@ const authSlice = createSlice({
                 state.status = 'loading';
                 state.data = null;
             })
-            .addCase(fetchRegister.fulfilled, (state, action) => {
+            .addCase(fetchAuth.fulfilled, (state, action) => {
                 state.status = 'loaded';
                 state.data = action.payload;
-            })
+              })
             .addCase(fetchRegister.rejected, (state) => {
                 state.status = 'error';
                 state.data = null;
@@ -59,3 +59,4 @@ export const selectIsAuth = state => Boolean(state.auth.data);
 export const authReducer = authSlice.reducer;
 
 export const {logout} = authSlice.actions;
+
