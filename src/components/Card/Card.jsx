@@ -4,6 +4,7 @@ import CarModal from "../Modal/Modal";
 import DefaultImage from '../../images/img/DefaultImage.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorites, removeFromFavorites, selectFavorites } from '../../redux/slices/favorites';
+import { selectIsAuth } from "../../redux/slices/auth";
 import icon from "../../images/svg/sprite.svg";
 import {
   CardWrap,
@@ -21,10 +22,15 @@ const CarCard = ({ car }) => {
   const [isOpened, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const favoriteCars = useSelector(selectFavorites);
+  const isAuth = useSelector(selectIsAuth); // Добавлено
 
-  // Обработчик клика на кнопке AddFavoriteButton
   const handleFavoriteToggle = () => {
-    const isFavorite = favoriteCars.some(favoriteCar => favoriteCar._id === car._id);
+    if (!isAuth) {
+      alert("Only authorized users can add a car to Favorites");
+      return;
+    }
+
+    const isFavorite = favoriteCars.some((favoriteCar) => favoriteCar._id === car._id);
 
     if (isFavorite) {
       dispatch(removeFromFavorites(car._id));
@@ -72,6 +78,7 @@ const CarCard = ({ car }) => {
         <AddFavoriteButton
           type="button"
           onClick={handleFavoriteToggle}
+          style={{ display: isAuth ? "block" : "none" }}
         >
           <svg className={`icon ${favoriteCars.some(favoriteCar => favoriteCar._id === car._id) ? "favorite" : ""}`}>
             <use href={`${icon}#icon-heart`}></use>
@@ -108,4 +115,3 @@ CarCard.propTypes = {
 };
 
 export default CarCard;
-

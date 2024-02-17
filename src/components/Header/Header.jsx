@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsAuth, logout } from "../../redux/slices/auth";
+import { resetFavorites } from "../../redux/slices/favorites";
 import {
   Container,
   Header,
@@ -17,6 +18,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(resetFavorites()); // Добавлено
     window.localStorage.removeItem('token');
   };
 
@@ -55,4 +57,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-

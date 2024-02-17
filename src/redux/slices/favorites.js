@@ -20,10 +20,14 @@ export const favoritesSlice = createSlice({
       state.cars = state.cars.filter((car) => car._id !== carId);
       localStorage.setItem("favs", JSON.stringify(state.cars)); // Обновляем localStorage
     },
+    resetFavorites: (state) => {
+      state.cars = [];
+      localStorage.removeItem("favs");
+    },
   },
 });
 
-export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions;
+export const { addToFavorites, removeFromFavorites, resetFavorites } = favoritesSlice.actions;
 
 // Selector для получения списка избранных автомобилей
 export const selectFavorites = (state) => state.favorites.cars;
