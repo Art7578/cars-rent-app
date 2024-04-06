@@ -1,10 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getInitialFavorites = () => {
+  const userId = localStorage.getItem('userId');
+  return JSON.parse(localStorage.getItem(`favs_${userId}`)) || [];
+};
+
+const initialState = {
+  cars: getInitialFavorites(),
+};
+
 export const favoritesSlice = createSlice({
   name: "favorites",
-  initialState: {
-    cars: JSON.parse(localStorage.getItem("favs")) || [],
-  },
+  initialState,
   reducers: {
     addToFavorites: (state, action) => {
       const car = action.payload;
@@ -12,25 +19,23 @@ export const favoritesSlice = createSlice({
 
       if (!existingCar) {
         state.cars.push(car);
-        localStorage.setItem("favs", JSON.stringify(state.cars)); // Обновляем localStorage
+        localStorage.setItem(`favs_${localStorage.getItem('userId')}`, JSON.stringify(state.cars)); 
       }
     },
     removeFromFavorites: (state, action) => {
       const carId = action.payload;
       state.cars = state.cars.filter((car) => car._id !== carId);
-      localStorage.setItem("favs", JSON.stringify(state.cars)); // Обновляем localStorage
+      localStorage.setItem(`favs_${localStorage.getItem('userId')}`, JSON.stringify(state.cars)); 
     },
-    resetFavorites: (state) => {
-      state.cars = [];
-      localStorage.removeItem("favs");
-    },
+    setFavorites: (state, action) => {
+      state.cars = action.payload;
+      localStorage.setItem(`favs_${localStorage.getItem('userId')}`, JSON.stringify(state.cars));
+    }
   },
 });
 
-export const { addToFavorites, removeFromFavorites, resetFavorites } = favoritesSlice.actions;
+export const { addToFavorites, removeFromFavorites, setFavorites } = favoritesSlice.actions;
 
-// Selector для получения списка избранных автомобилей
 export const selectFavorites = (state) => state.favorites.cars;
 
-// Редьюсер для обработки экшенов
 export const favoriteReducer = favoritesSlice.reducer;

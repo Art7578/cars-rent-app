@@ -1,25 +1,52 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../../services/API';
+import { removeFromFavorites, setFavorites } from './favorites';
 
-export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params) => {
-    const {data} = await axios.post('/auth/login', params);
-    return data;
+export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    try {
+        const { data } = await axios.post('/auth/login', params);
+        if ('token' in data) {
+            window.localStorage.setItem('token', data.token);
+            const userId = data._id;
+            localStorage.setItem('userId', userId);
+            const favorites = JSON.parse(localStorage.getItem(`favs_${userId}`)) || [];
+            dispatch(setFavorites(favorites));
+        }
+        return data;
+    } catch (error) {
+        // Обработка ошибки
+        console.error('Error during login:', error);
+        throw error;
+    }
 });
 
-export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params) => {
-    const {data} = await axios.post('/auth/register', params);
-    return data;
+export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    try {
+        const { data } = await axios.post('/auth/register', params);
+        if ('token' in data) {
+            window.localStorage.setItem('token', data.token);
+            const userId = data._id;
+            localStorage.setItem('userId', userId);
+            const favorites = JSON.parse(localStorage.getItem(`favs_${userId}`)) || [];
+            dispatch(setFavorites(favorites));
+        }
+        return data;
+    } catch (error) {
+        console.error('Error during registration:', error);
+        throw error;
+    }
 });
 
 const initialState = {
     data: null,
     status: 'loading',
+    userId: localStorage.getItem('userId') || null,
 };
-
 
 const token = localStorage.getItem('token');
 initialState.data = token ? { token } : null;
-
 
 const authSlice = createSlice({
     name: 'auth',
@@ -27,8 +54,11 @@ const authSlice = createSlice({
     reducers: {
         logout: (state) => {
             state.data = null;
-            localStorage.removeItem('token'); 
-        }
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            state.userId = null;
+            removeFromFavorites(); 
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -39,8 +69,6 @@ const authSlice = createSlice({
             .addCase(fetchRegister.fulfilled, (state, action) => {
                 state.status = 'loaded';
                 state.data = action.payload;
-                localStorage.setItem('token', action.payload.token); 
-                console.log("User ID:", action.payload._id);
             })
             .addCase(fetchAuth.rejected, (state) => {
                 state.status = 'error';
@@ -53,8 +81,6 @@ const authSlice = createSlice({
             .addCase(fetchAuth.fulfilled, (state, action) => {
                 state.status = 'loaded';
                 state.data = action.payload;
-                localStorage.setItem('token', action.payload.token); 
-                console.log("User ID:", action.payload._id);
             })
             .addCase(fetchRegister.rejected, (state) => {
                 state.status = 'error';
@@ -67,4 +93,4 @@ export const selectIsAuth = state => Boolean(state.auth.data);
 
 export const authReducer = authSlice.reducer;
 
-export const {logout} = authSlice.actions;
+export const { logout } = authSlice.actions;

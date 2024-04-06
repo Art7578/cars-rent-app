@@ -67,4 +67,3 @@ Catalog.propTypes = {
 };
 
 export default Catalog;
-
