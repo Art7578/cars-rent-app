@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../../services/API';
 
-export const fetchCatalog = createAsyncThunk('/catalog/fetchCatalog', async ({ page, itemsPerPage }) => {
-    const { data } = await axios.get('/catalog', { params: { page, itemsPerPage } });
+export const fetchCatalog = createAsyncThunk('/catalog/fetchCatalog', async ({ page, itemsPerPage, filter }) => {
+    const { data } = await axios.get('/catalog', { params: { page, itemsPerPage, ...filter } });
     return data;
 });
 
@@ -18,7 +18,8 @@ const initialState = {
         currentPage: 1,
         itemsPerPage: 8,
         hasMore: true 
-    }
+    },
+    filteredCars: []
 };
 
 
@@ -35,6 +36,12 @@ const catalogSlice = createSlice({
         decreaseCurrentPage: (state) => {
             state.catalog.currentPage -= 1;
             state.catalog.hasMore = true; 
+        },
+        setCatalog(state, action) {
+            state.catalog = action.payload;
+          },
+          setFilteredCars(state, action) {
+            state.filteredCars = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -58,4 +65,4 @@ const catalogSlice = createSlice({
 });
 
 export const catalogReducer = catalogSlice.reducer;
-export const { setCurrentPage, setHasMore } = catalogSlice.actions;
+export const { setCurrentPage, setHasMore, setFilteredCars } = catalogSlice.actions;
