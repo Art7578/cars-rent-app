@@ -1,10 +1,10 @@
-import { Title, Text, Container} from "./Home.styled";
+import { Title, Container, CarContainer, CarImage, CarDescription, CarTitle, TextContainer} from "./Home.styled";
 
 const Home = () => {
   return (
     <Container>
       <Title>Explore Your World with Our Rental Cars</Title>
-      <Text>
+      {/* <Text>
         "Welcome to our car rental app! We offer you a unique opportunity to explore the world 
         at your own pace. Whether you need a car for a business trip or an adventurous vacation, 
         we are here to make your journey easy and convenient. <br/>
@@ -15,7 +15,18 @@ const Home = () => {
 
         Explore new places, have adventures and create unforgettable moments with our car rental app. 
         Let's start your next adventure today!"
-      </Text>
+      </Text> */}
+      <CarContainer>
+        <TextContainer>
+          <CarTitle>Maserati <span>GranTurismo</span></CarTitle>
+          <CarDescription>
+            Welcome to our car rental app! We offer you a unique opportunity to explore the world 
+            at your own pace. Whether you need a car for a business trip or an adventurous vacation, 
+            we are here to make your journey easy and convenient.
+          </CarDescription>
+        </TextContainer>
+        <CarImage/>
+    </CarContainer>
     </Container>
   );
 };

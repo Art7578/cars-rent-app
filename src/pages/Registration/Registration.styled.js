@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import AuthImage from '../../images/img/car.png'
+import BackImage from '../../images/img/back-image.PNG'
 
 export const Container = styled.div`
   display: flex;
@@ -6,15 +8,20 @@ export const Container = styled.div`
   justify-content: center; 
   align-items: center; 
   height: 100vh; 
+  background-image: url('${BackImage}');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 `;
 
 export const FormContainer = styled.div`
-  max-width: 500px; 
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 1200px; 
   padding: 40px; 
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: rgba(244, 247, 247, 0.247);
 `;
 
 export const Title = styled.h2`
@@ -28,6 +35,7 @@ export const Title = styled.h2`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
+  max-width: 500px;
 `;
 
 export const Label = styled.label`
@@ -72,5 +80,14 @@ export const Button = styled.button`
     background-color: #ccc;
     cursor: not-allowed;
   }
+`;
+
+export const Image = styled.div`
+  width: 750px;
+  height: 450px;
+  background-image: url('${AuthImage}');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 `;
 

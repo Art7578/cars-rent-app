@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Navigate } from "react-router-dom";
 import { fetchRegister, selectIsAuth } from '../../redux/slices/auth';
-import { Title, Container, FormContainer, Form, Label, Input, Error, Button } from './Registration.styled';
+import { Title, Container, FormContainer, Form, Label, Input, Error, Button, Image } from './Registration.styled';
 
 const Registration = () => {
   const isAuth = useSelector(selectIsAuth);
@@ -70,6 +70,7 @@ const Registration = () => {
             Register
           </Button>
         </Form>
+        <Image/>
       </FormContainer>
     </Container>
   );

@@ -31,10 +31,10 @@ export const App = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
-        <Route path="/registration" element={<Registration />} />
-        <Route path="/login" element={<LogIn />} />
         <Route path="/" element={<Sidebar />}>
           <Route index element={<Home />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/login" element={<LogIn />} />
           <Route
             path="/catalog"
             element={

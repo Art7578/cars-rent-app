@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
-import { Container, FormContainer, Title, Form, Label, Input, Error, Button } from '../Registration/Registration.styled';
+import { Container, FormContainer, Title, Form, Label, Input, Error, Button, Image } from '../Registration/Registration.styled';
 
 const Login = () => {
   const isAuth = useSelector(selectIsAuth);
@@ -63,6 +63,7 @@ const Login = () => {
             Log in
           </Button>
         </Form>
+        <Image/>
       </FormContainer>
     </Container>
   );
