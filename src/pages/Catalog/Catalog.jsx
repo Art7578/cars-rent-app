@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Gallery from "../../components/CarList";
 import Loader from "../../components/Loader";
 import CarSearch from "../../components/CarSearch";
-import { Container, Button } from "./Catalog.styled";
+import { Container, Button, PageForm, PageInfo } from "./Catalog.styled";
 import { fetchCatalog, setHasMore, setCurrentPage, decreaseCurrentPage } from '../../redux/slices/catalog'; 
 import { setFilter, resetFilter } from '../../redux/slices/filter';
 import { setFilteredCars } from '../../redux/slices/catalog'; 
@@ -16,6 +16,7 @@ const Catalog = ({ setCars, favoriteToggle }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const filteredCars = useSelector(state => state.catalog.filteredCars);
+  const [pageNumber, setPageNumber] = useState(catalog.currentPage.toString()); // Состояние для номера текущей страницы
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +38,8 @@ const Catalog = ({ setCars, favoriteToggle }) => {
             dispatch(setFilteredCars(favoritedCars)); 
             if (data.length < catalog.itemsPerPage) {
                 dispatch(setHasMore(false));
+            } else {
+                dispatch(setHasMore(true)); // Убедимся, что флаг hasMore установлен в true, если есть еще данные
             }
         } catch (error) {
             setError(error.message);
@@ -60,7 +63,7 @@ const Catalog = ({ setCars, favoriteToggle }) => {
 
   const goBack = () => {
       dispatch(decreaseCurrentPage());
-      dispatch(setHasMore(true));
+      dispatch(setHasMore(true)); // Установим флаг hasMore в true при возврате на предыдущую страницу
   };
 
   const searchCars = (searchData) => {
@@ -74,6 +77,15 @@ const Catalog = ({ setCars, favoriteToggle }) => {
     dispatch(setHasMore(true)); 
   };
 
+  const handlePageChange = (e) => {
+    setPageNumber(e.target.value);
+  };
+
+  const goToPage = (e) => {
+    e.preventDefault();
+    dispatch(setCurrentPage(Number(pageNumber)));
+  };
+
   return (
       <Container>
           <CarSearch onSearch={searchCars} onReset={resetSearch} />
@@ -84,6 +96,18 @@ const Catalog = ({ setCars, favoriteToggle }) => {
             {catalog.currentPage > 1 && !isLoading && <Button onClick={goBack}>Go Back</Button>} 
             {catalog.hasMore && !isLoading && <Button onClick={loadMore}>Load more</Button>}
           </div>
+          <PageInfo>
+            Page {catalog.currentPage}
+          </PageInfo>
+          <PageForm onSubmit={goToPage}> {/* Форма для управления номером страницы */}
+            <input
+              type="number"
+              min="1"
+              value={pageNumber}
+              onChange={handlePageChange}
+            />
+            <button type="submit">Go</button>
+          </PageForm>
       </Container>
   );
 };
