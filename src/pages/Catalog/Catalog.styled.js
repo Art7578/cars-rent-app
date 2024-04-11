@@ -40,7 +40,7 @@ export const PageForm = styled.form`
     margin-right: 10px;
     font-size: 14px;
     text-align: center;
-    border: 1px solid transparent;
+    border: 1px solid blue;
     border-radius: 10px;
   }
 
@@ -63,5 +63,5 @@ export const PageInfo = styled.span`
   margin-top: 10px;
   font-size: 22px;
   font-weight: 700;
-  color: #fff;
+  color: black;
 `;
