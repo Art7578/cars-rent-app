@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <Container>
-      <Title>Вход в аккаунт</Title>
+      <Title>Log In</Title>
       <FormContainer>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Label>
