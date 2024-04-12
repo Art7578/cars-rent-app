@@ -4,7 +4,8 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 50px 128px 150px 128px;
+  margin-top: 60px;
+  margin-bottom: 60px;
 `;
 
 export const CatalogButtons = styled.div`
