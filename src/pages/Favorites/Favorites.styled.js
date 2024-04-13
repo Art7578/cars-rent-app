@@ -3,43 +3,49 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1300px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 60px;
   margin-bottom: 60px;
-`;
 
-export const Button = styled.button`
-  color: #3470ff;
-  font-family: Manrope;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-  text-decoration-line: underline;
-  padding: 0 20px;
-  border: none;
-  background-color: transparent;
+  @media screen and (min-width: 1440px) {
+    width: 1400px;
+    gap: 30px;
+  }
 
-  &:hover,
-  &:focus {
-    color: #0b44cd;
+  @media screen and (max-width: 768px) {
+    gap: 20px;
+    padding: 0 20px;
+    margin-bottom: 60px;
+  }
+
+  @media screen and (max-width: 480px) {
+    gap: 15px;
+    padding: 0 15px;
+    margin-bottom: 40px;
   }
 `;
 
 export const Text = styled.p`
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   margin-top: 200px;
   color: #ff0000;
-`;
 
-export const Image = styled.img`
-  margin-left: auto;
-  margin-right: auto;
-  width: 400px;
-  margin-bottom: 40px;
+  @media screen and (min-width: 1440px) {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    gap: 20px;
+    padding: 0 20px;
+    margin-bottom: 60px;
+  }
 `;
 
 export const List = styled.ul`

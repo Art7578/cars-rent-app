@@ -7,11 +7,19 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center; 
   align-items: center; 
-  height: 100vh; 
+  height: 105vh; 
   background-image: url('${BackImage}');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  @media screen and (min-width: 768px) {
+    height: 120vh;
+  }
+
+  @media screen and (min-width: 1200px) {
+    height: 90vh;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -39,7 +47,7 @@ export const FormContainer = styled.div`
 export const Title = styled.h2`
   text-align: center;
   margin-bottom: 30px; 
-  color: #fff;
+  color: black;
   font-weight: 700;
   font-size: 36px; 
 
@@ -74,7 +82,7 @@ export const Input = styled.input`
   padding: 15px; 
   margin-top: 10px; 
   margin-bottom: 20px; 
-  border: 2px solid #ccc; 
+  border: 2px solid blue; 
   border-radius: 6px; 
   font-size: 16px; 
 

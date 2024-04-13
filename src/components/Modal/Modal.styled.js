@@ -20,13 +20,14 @@ export const Modal = styled.div`
   border-radius: 24px;
   background: #fff;
   z-index: 3;
+  max-width: 541px; /* New */
+  width: 90%; /* New */
 `;
 
 export const ModalContainer = styled.div`
   position: relative;
   display: flex;
   padding: 40px;
-  width: 541px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
@@ -53,7 +54,7 @@ export const CloseButton = styled.button`
 
 export const ImageWrap = styled.div`
   position: relative;
-  width: 460px;
+  width: 100%;
   min-height: 248px;
   margin-bottom: 14px;
   overflow: hidden;
@@ -64,6 +65,10 @@ export const ImageWrap = styled.div`
       rgba(18, 20, 23, 0) 41.07%
     ),
     #f3f3f2;
+
+  @media screen and (min-width: 768px) {
+    min-height: 300px;
+  }
 `;
 
 export const Image = styled.img`
@@ -92,6 +97,10 @@ export const Description = styled.p`
   line-height: 1.5;
   width: 277px;
   margin-bottom: 14px;
+
+  @media screen and (min-width: 480px) {
+    width: 100%;
+  }
 `;
 
 export const DescriptionText = styled.p`

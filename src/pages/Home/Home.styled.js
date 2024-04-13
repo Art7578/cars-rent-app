@@ -112,6 +112,7 @@ export const SectionOneImage = styled.img`
 
 export const SectionTwoContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin-right: auto;
   margin-left: auto;
@@ -131,6 +132,10 @@ export const SectionTwoContainer = styled.div`
 
   @media screen and (max-width: 1199px) {
     max-width: 768px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    flex-direction: row;
   }
 `;
 

@@ -17,7 +17,7 @@ export const SliderImage = styled.img`
   border-radius: 20px;
 
   @media screen and (max-width: 1200px) {
-    width: 950px;
-    height: 600px;
+    width: 750px;
+    height: 350px;
   }
 `;
